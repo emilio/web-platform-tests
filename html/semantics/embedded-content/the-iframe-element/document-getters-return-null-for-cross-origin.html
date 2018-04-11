@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<meta charset=utf-8>
+<title>Test that contentDocument/getSVGDocument() return null for a cross-origin document.</title>
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<script>
+function runTest() {
+  setup({ explicit_done: true })
+  const iframe = document.querySelector('iframe');
+  test(() => {
+    assert_equals(iframe.getSVGDocument(), null);
+  }, 'HTMLIFrameElement.getSVGDocument() for cross-origin document');
+  test(() => {
+    assert_equals(iframe.contentDocument, null);
+  }, 'HTMLIFrameElement.contentDocument for cross-origin document');
+  done();
+}
+</script>
+<body onload="runTest()">
+<iframe src='data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><rect height="100" width="100"/></svg>'></iframe>
+</body>

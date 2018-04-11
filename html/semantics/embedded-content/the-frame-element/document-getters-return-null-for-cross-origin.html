@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<meta charset=utf-8>
+<title>Test that contentDocument returns null for a cross-origin document.</title>
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<script>
+function runTest() {
+  setup({ explicit_done: true })
+  const frame = document.querySelector('frame');
+  test(() => {
+    assert_equals(null, frame.contentDocument);
+  }, 'HTMLFrameElement.contentDocument for cross-origin document');
+  done();
+}
+</script>
+<frameset onload="runTest()">
+<frame src='data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><rect height="100" width="100"/></svg>'></frame>
+</frameset>
+</body>

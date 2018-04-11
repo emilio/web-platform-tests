@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<meta charset=utf-8>
+<title>Test that getSVGDocument() returns null for a cross-origin document.</title>
+<script src="/resources/testharness.js"></script>
+<script src="/resources/testharnessreport.js"></script>
+<script>
+function runTest() {
+  setup({ explicit_done: true })
+  const embed = document.querySelector('embed');
+  test(() => {
+    assert_equals(embed.getSVGDocument(), null);
+  }, 'HTMLEmbedElement.getSVGDocument() for cross-origin document');
+  done();
+}
+</script>
+<body onload="runTest()">
+<embed src='data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><rect height="100" width="100"/></svg>'></embed>
+</body>
